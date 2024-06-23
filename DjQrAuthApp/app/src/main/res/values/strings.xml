@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">DjQrAuthApp</string>
+    <string name="app_name">QR Authentication App</string>
     <string name="scan_qr_code">Scan QR Code</string>
     <string name="scan_result_will_appear_here">Scan result will appear here</string>
+    <string name="menu">Menu</string>
 </resources>
