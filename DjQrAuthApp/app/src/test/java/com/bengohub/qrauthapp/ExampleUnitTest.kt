@@ -1,4 +1,4 @@
-package com.bengohub.djqrauthapp
+package com.bengohub.qrauthapp
 
 import org.junit.Test
 

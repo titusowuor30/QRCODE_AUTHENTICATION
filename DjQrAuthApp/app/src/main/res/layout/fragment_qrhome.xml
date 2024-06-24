@@ -1,0 +1,36 @@
+<!-- res/layout/fragment_qrhome.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.QRHome.QRHomeFragment">
+    <!-- Toggle Button for HTTP/WebSocket -->
+    <!-- Scan Button -->
+    <Button
+        android:id="@+id/toggle_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scan_result"
+        android:layout_marginTop="-153dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/toggle_protocol" />
+
+    <Button
+        android:id="@+id/scan_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scan_qr_code"
+        android:layout_centerInParent="true" />
+
+    <!-- Scan Result Text View -->
+    <TextView
+        android:id="@+id/scan_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scan_button"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/scan_result_will_appear_here"
+        android:textSize="18sp" />
+
+</RelativeLayout>

@@ -1,9 +1,12 @@
 <resources>
-    <string name="app_name">QR Authentication App</string>
+    <string name="app_name">QR Auth App</string>
+    <string name="title_home">QR Code</string>
+    <string name="title_dashboard">Api Settings</string>
+    <string name="scan_result_will_appear_here">Auth Key will appear here</string>
     <string name="scan_qr_code">Scan QR Code</string>
-    <string name="scan_result_will_appear_here">Scan result will appear here</string>
-    <string name="menu">Menu</string>
-    <string name="api_endpoint">API Settings</string>
     <string name="enter_api_endpoint">Enter API endpoint</string>
     <string name="save">Save</string>
+    <string name="api_endpoint">API Settings</string>
+    <string name="toggle_protocol">Toggle Protocol(Http/WebSocket)</string>
+    <string name="enter_web_socket_endppoint">Enter Web Socket endppoint</string>
 </resources>

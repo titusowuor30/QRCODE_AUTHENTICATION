@@ -1,23 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    tools:context=".ui.ApiSettings.ApiSettingsFragment">
 
     <TextView
         android:id="@+id/label_api_endpoint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/api_endpoint"
+        android:layout_centerHorizontal="true"
+        android:color="@color/purple_200"
         android:textSize="18sp" />
 
     <EditText
         android:id="@+id/api_endpoint"
-        android:layout_width="match_parent"
+        android:layout_width="393dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/label_api_endpoint"
         android:layout_marginTop="8dp"
+        android:autofillHints="http://192.168.8.6:8000"
         android:hint="@string/enter_api_endpoint"
+        android:layout_centerHorizontal="true"
+        android:inputType="textUri" />
+
+    <EditText
+        android:id="@+id/ws_endpoint"
+        android:layout_width="393dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label_api_endpoint"
+        android:layout_marginTop="77dp"
+        android:autofillHints="ws://192.168.8.6:8000"
+        android:hint="@string/enter_web_socket_endppoint"
+        android:layout_centerHorizontal="true"
         android:inputType="textUri" />
 
     <Button
@@ -25,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/api_endpoint"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="96dp"
+        android:layout_centerHorizontal="true"
         android:text="@string/save" />
 </RelativeLayout>

@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "DjQrAuthApp"
+rootProject.name = "QRAuthApp"
 include(":app")
