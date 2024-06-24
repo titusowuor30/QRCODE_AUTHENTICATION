@@ -3,4 +3,7 @@
     <string name="scan_qr_code">Scan QR Code</string>
     <string name="scan_result_will_appear_here">Scan result will appear here</string>
     <string name="menu">Menu</string>
+    <string name="api_endpoint">API Settings</string>
+    <string name="enter_api_endpoint">Enter API endpoint</string>
+    <string name="save">Save</string>
 </resources>

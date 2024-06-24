@@ -3,7 +3,7 @@
     <div class="container">
         <div class="left-panel">
             <div class="app-name">
-                <h1>QR Auth App</h1>
+                <h1>QR Auth App - Polling</h1>
             </div>
             <div class="description">
                 <p>Scan the QR code with your mobile app to log in.</p>
@@ -13,11 +13,13 @@
             </div>
             <div class="status">
                 <p>Status: <span id="status">Pending</span></p>
+                <p id="polling_key"></p>
             </div>
         </div>
         <div class="right-panel">
             <div class="info">
                 <i class="fas fa-info-circle"></i>
+                <a href="{% url 'websocket-qr-login' %}">Switch to WebSocket Mode</a>
                 <h2>Use Our App on Your Computer</h2>
                 <ol>
                     <li>1. Open app on your phone</li>
@@ -30,3 +32,22 @@
         </div>
     </div>
 {% endblock content %}
+{% block extra_scripts %}
+<script>
+let currentKey = "";
+ function checkAuthStatus() {
+    if (currentKey) {
+        fetch(`/check-auth-status/${currentKey}/`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'Completed') {
+                    document.getElementById('status').innerText = 'Completed';
+                    // Redirect to login URL with login key
+                    window.location.href = `/login/?key=${data.login_key}`;
+                }
+            });
+    }
+}
+setInterval(checkAuthStatus, 10000);
+</script>
+{% endblock extra_scripts %}

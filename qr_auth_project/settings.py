@@ -32,14 +32,17 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'qr_auth_app',
     'rest_framework',
+    #third party
+    'qr_auth_app',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+ASGI_APPLICATION = 'qr_auth_project.asgi.application'
 
 ROOT_URLCONF = 'qr_auth_project.urls'
 
@@ -71,8 +76,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'qr_auth_project.wsgi.application'
-
-
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 

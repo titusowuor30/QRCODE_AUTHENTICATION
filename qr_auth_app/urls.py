@@ -4,6 +4,7 @@ from .views import *
 
 urlpatterns = [
     path('qr-login/', qr_login, name='qr-login'),
+    path('websocket-qr-login/', websocket_qr_login, name='websocket-qr-login'),
     path('authenticate/<str:key>/', authenticate_key, name='authenticate'),
     path('check-auth-status/<str:key>/', check_auth_status, name='check-auth-status'),
     path('get-qr-code/', qr_code_view, name='get-qr-code'),

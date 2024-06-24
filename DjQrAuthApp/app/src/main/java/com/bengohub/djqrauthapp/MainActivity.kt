@@ -6,6 +6,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import com.google.zxing.integration.android.IntentIntegrator
@@ -36,6 +37,12 @@ class MainActivity : Activity() {
             integrator.setBarcodeImageEnabled(true)
             integrator.initiateScan()
         }
+
+        val menuButton: ImageButton = findViewById(R.id.nav_right_button)
+        menuButton.setOnClickListener {
+            val intent = Intent(this, ApiSettingsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -55,12 +62,19 @@ class MainActivity : Activity() {
     }
 
     private fun authenticate(key: String) {
+        val sharedPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE)
+        val apiEndpoint = sharedPreferences.getString("api_endpoint", "")
+
+        if (apiEndpoint.isNullOrEmpty()) {
+            Toast.makeText(this, "API endpoint not set", Toast.LENGTH_LONG).show()
+            return
+        }
         val client = OkHttpClient()
         val mediaType = "application/json; charset=utf-8".toMediaTypeOrNull()
         val body = RequestBody.create(mediaType, ByteArray(0))
 
         val request = Request.Builder()
-            .url("http://192.168.8.6:8000/authenticate/$key/")
+            .url("$apiEndpoint/authenticate/$key/")
             .post(body)
             .build()
 

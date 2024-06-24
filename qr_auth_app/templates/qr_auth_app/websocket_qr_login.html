@@ -1,0 +1,88 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="left-panel">
+            <div class="app-name">
+                <h1>QR Auth App - WebSockets</h1>
+            </div>
+            <div class="description">
+                <p>Scan the QR code with your mobile app to log in.</p>
+            </div>
+            <div class="qr-code-container">
+                <img id="qr-code-img" src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code">
+            </div>
+            <div class="status">
+                <p>Status: <span id="status">Pending</span></p>
+                <p id="websocket_key" style="display: none;"></p>
+            </div>
+        </div>
+        <div class="right-panel">
+            <div class="info">
+                <i class="fas fa-info-circle"></i>
+                <a href="{% url 'qr-login' %}">Switch To Polling Mode</a>
+                <h2>Use Our App on Your Computer</h2>
+                <ol>
+                    <li>1. Open app on your phone</li>
+                    <li>2. Tap Menu on Android, or Settings on iPhone</li>
+                    <li>3. Tap Linked Devices and then Link a device</li>
+                    <li>4. Point your phone at this screen to capture the QR code</li>
+                </ol>
+                <p>Keep this window open while you scan the QR code with your mobile app.</p>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block extra_scripts %}
+<script>
+    let currentKey = "Initial"; // Replace with your initial key value
+    var useWebSocket = true;
+
+    function connectWebSocket() {
+        if (useWebSocket && currentKey) {
+            const socket = new WebSocket(`ws://${window.location.host}/ws/auth/${currentKey}/`);
+
+            socket.onopen = function(e) {
+                console.log('WebSocket connection is open');
+                // Send initial message when WebSocket connects
+                const initialMessage = {
+                    status: 'Cennected',
+                    key: currentKey
+                };
+                socket.send(JSON.stringify(initialMessage));
+            };
+
+            socket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                console.log('WebSocket message received:', data);
+
+                if (data.status === 'Scanned') {
+                    document.getElementById('status').innerText = 'QR Scanned verifying...';
+                    if (currentKey === data.key) {
+                        document.getElementById('status').innerText = 'Completed';
+                        // Redirect to login URL with login key
+                        window.location.href = `/login/?key=${data.login_key}`;
+                    }
+                } else if (data.status === 'Initial') {
+                    document.getElementById('status').innerText = 'Connection made from client';
+                } else {
+                    document.getElementById('status').innerText = data.status;
+                }
+            };
+
+            socket.onerror = function(error) {
+                console.error('WebSocket error:', error);
+            };
+
+            socket.onclose = function(event) {
+                if (event.wasClean) {
+                    console.log(`WebSocket connection closed cleanly, code=${event.code}, reason=${event.reason}`);
+                } else {
+                    console.error(`WebSocket connection died unexpectedly, code=${event.code}`);
+                }
+            };
+        }
+    }
+
+    connectWebSocket();
+</script>
+{% endblock extra_scripts %}

@@ -33,6 +33,8 @@ def login_with_key(request):
 def qr_login(request):
     return render(request, 'qr_auth_app/qr_login.html')
 
+def websocket_qr_login(request):
+    return render(request, 'qr_auth_app/websocket_qr_login.html')
 
 def qr_code_view(request):
     key = generate_auth_key()
